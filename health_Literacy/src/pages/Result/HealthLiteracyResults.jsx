@@ -23,26 +23,26 @@ const HealthLiteracyResults = () => {
     <div className="bg-gray-100 min-h-screen">
       <main className="p-4">
         <div className="flex items-center mb-4">
-          <h2 className="text-lg font-bold flex-grow">
-            ผลการประเมิน Health Literacy
-            <br />
+          <h1 className="text-2xl font-bold flex-grow">
+            <div className='text-green-500'>ผลการประเมิน Health Literacy</div> 
+            
             <span className="text-sm font-normal">Health Literacy Assessment Results</span>
-          </h2>
+          </h1>
         </div>
 
         <div className="bg-white rounded-lg shadow p-4 mb-4">
           <h3 className="font-bold text-gray-600 mb-2">ชื่อ-สกุล/Name-Surname</h3>
-          <p className="text-lg mb-4">นายสุขภาพ ดีทั่วไทย</p>
+          <p className="text-lg mb-4">นายอนุวัตร สวัสดิวงศ์</p>
           <div className="flex justify-between mt-2">
             <div>
               <p className="text-sm text-gray-600">อายุ</p>
               <p className="text-sm text-gray-600">Age</p>
-              <p>35</p>
+              <p>55</p>
             </div>
             <div>
               <p className="text-sm text-gray-600">เลขบัตรประชาชน</p>
               <p className="text-sm text-gray-600">ID No.</p>
-              <p>12345678901234</p>
+              <p>1234567890123</p>
             </div>
             <div>
               <p className="text-sm text-gray-600">ระดับความรอบรู้ด้านสุขภาพ</p>
@@ -53,20 +53,27 @@ const HealthLiteracyResults = () => {
         </div>
 
         <div className="bg-white rounded-lg shadow p-4 mb-4">
-          <h3 className="font-bold mb-2">ผลการประเมินทั้ง 5 ด้าน</h3>
-          {assessmentResults.map((result) => (
-            <div key={result.id} className="flex justify-between items-center mb-2">
-              <span>{`ด้านที่ ${result.id} ${result.name}`}</span>
-              <span className={`px-2 py-1 rounded-full text-sm ${
-                result.status === 'ความรอบรู้เพียงพอ' ? 'bg-green-500 text-white' :
-                result.status === 'ความรอบรู้อาจไม่เพียงพอ' ? 'bg-yellow-500 text-white' :
-                'bg-red-500 text-white'
-              }`}>
-                {result.status}
-              </span>
-            </div>
-          ))}
-        </div>
+  <h3 className="font-bold mb-2">ผลการประเมินทั้ง 5 ด้าน</h3>
+  {assessmentResults.map((result) => (
+    <div key={result.id} className="flex items-center mb-2">
+      <span className="flex-grow">{`ด้านที่ ${result.id} ${result.name}`}</span>
+      <div className="flex items-center">
+        <span
+          className={`w-4 h-4 rounded-full mr-2 ${
+            result.status === 'ความรอบรู้เพียงพอ' ? 'bg-green-500' :
+            result.status === 'ความรอบรู้อาจไม่เพียงพอ' ? 'bg-yellow-500' :
+            'bg-red-500'
+          }`}
+        ></span>
+        <span className="text-sm">
+          {result.status}
+        </span>
+      </div>
+    </div>
+  ))}
+</div>
+
+
 
         <div className="grid grid-cols-5 gap-4">
           {areaNames.map((name, index) => (
@@ -87,19 +94,33 @@ const HealthLiteracyResults = () => {
         {selectedArea && (
           <div className="bg-white rounded-lg shadow p-4 mt-4">
             <h3 className="font-bold mb-2">{`ด้านที่ ${selectedArea} ${areaNames[selectedArea - 1]}`}</h3>
-            <div className="flex justify-between items-center">
-              <span>ผลการประเมินรายด้าน</span>
-              <span className={`px-2 py-1 rounded-full text-sm ${
-                assessmentResults.find(result => result.id === selectedArea).status === 'ความรอบรู้เพียงพอ' ? 'bg-green-500 text-white' :
-                assessmentResults.find(result => result.id === selectedArea).status === 'ความรอบรู้อาจไม่เพียงพอ' ? 'bg-yellow-500 text-white' :
-                'bg-red-500 text-white'
-              }`}>
-                {assessmentResults.find(result => result.id === selectedArea).status}
-              </span>
-            </div>
-            
-          </div>
-        )}
+            <div className="flex flex-col space-y-2">
+              <div className="flex justify-between items-center">
+                <span>ผลการประเมินครั้งล่าสุด</span>
+                <span className={`px-2 py-1 rounded-full text-sm ${
+                  assessmentResults.find(result => result.id === selectedArea).status === 'ความรอบรู้เพียงพอ' ? 'bg-green-500 text-white' :
+                  assessmentResults.find(result => result.id === selectedArea).status === 'ความรอบรู้อาจไม่เพียงพอ' ? 'bg-yellow-500 text-white' :
+                  'bg-red-500 text-white'
+        }`}>
+          {assessmentResults.find(result => result.id === selectedArea).status}
+        </span>
+      </div>
+
+      <div className="flex justify-between items-center">
+        <span>ผลการประเมินครั้งที่ 1</span>
+        <span className={`px-2 py-1 rounded-full text-sm ${
+          assessmentResults.find(result => result.id === selectedArea).status === 'ความรอบรู้เพียงพอ' ? 'bg-green-500 text-white' :
+          assessmentResults.find(result => result.id === selectedArea).status === 'ความรอบรู้อาจไม่เพียงพอ' ? 'bg-yellow-500 text-white' :
+          'bg-red-500 text-white'
+        }`}>
+          {assessmentResults.find(result => result.id === selectedArea).status}
+        </span>
+      </div>
+    </div>
+  </div>
+)}
+
+      
       </main>
     </div>
   );
